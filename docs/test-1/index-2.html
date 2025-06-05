@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+    function ClickEventComponent(props) {
+
+      const [count, setCount] = React.useState(0);
+
+      const handleOnClick = () => {
+        setCount(count + 1);
+      }
+
+      return (
+        <div>
+          <div>Count: {count}</div>
+          <button onClick={handleOnClick}>Click Me</button>
+        </div>
+      )
+    }
+
+    const RootContext = React.createContext();
+
+    function RootContextComponent(props) {
+      const [name, setName] = React.useState('');
+
+      return <RootContext.Provider value={{ name, setName }}>
+        {props.children}
+      </RootContext.Provider>
+    }
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<RootContextComponent>
+        <div>
+          <h1>Hello World</h1>
+          <ClickEventComponent />
+        </div>
+      </RootContextComponent>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

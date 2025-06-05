@@ -1,0 +1,50 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>useId</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+function IdComponent() {
+  const [count, setCount] = React.useState(1);
+  const vid = React.useId();
+
+  const handleChange = () => {
+    setCount(count + 1);
+  }
+
+  React.useEffect(() => {
+    setCount(count + 1);
+  }, []);
+  return (
+    <div>
+      <div> count = {count}</div>
+      <div> vid = {vid}</div>
+      <button onClick={handleChange}>修改</button>
+    </div>
+  );
+}
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<div>
+        <h1>useId - demo1</h1>
+        <IdComponent />
+      </div>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

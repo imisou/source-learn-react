@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>useDeferredValue</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+    function SearchInput() {
+      const [value, setValue] = React.useState("");
+      const deferredValue = React.useDeferredValue(value);
+
+      const handleSearch = React.useCallback(
+        (e) => {
+          setValue(e.target.value);
+        },
+        [value]
+      );
+      return (
+        <div>
+          <input value={value} onChange={handleSearch} />
+          <p>value: {value}</p>
+          <p>deferredValue: {deferredValue}</p>
+          <div>
+             { Array(10000).fill(value).map(() => {
+              return <p>value: {value}</p>
+             })
+            }
+          </div>
+        </div>
+      );
+    }
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<div>
+        <h1>useDeferredValue - demo1</h1>
+        <SearchInput />
+      </div>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

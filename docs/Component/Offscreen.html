@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>useId</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    const MyOffscreen = ({ children }) => {
+      debugger
+      return React.createElement(React.unstable_Offscreen , {
+        mode : 'hide',
+      } , children)
+    }
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<div>
+        <h1>Suspense - demo1</h1>
+        <MyOffscreen>
+           <div>我是子节点</div>
+        </MyOffscreen>
+      </div>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

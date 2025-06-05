@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+    class UpdateComponent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.buttonRef = React.createRef();
+      }
+
+      state = {
+        count: "",
+      }
+
+      handleButtonClick = () => {
+        this.setState(prevState => {
+          return { count: prevState.count + "D" }
+        })
+      }
+
+      onBeginClickTask = () => {
+        const button = this.buttonRef.current
+        setTimeout(() => button.click(), 600)
+      }
+
+      onDragHandler = () => {
+        this.setState((preState) => {
+          return {
+            count: preState.count + "A",
+          };
+        });
+        this.setState((preState) => {
+          return {
+            count: preState.count + "B",
+          };
+        });
+        this.setState((preState) => {
+          return {
+            count: preState.count + "C",
+          };
+        });
+      }
+
+      render() {
+        return (
+          <div>
+            当前值： {this.state.count}
+            <button ref={this.buttonRef} onClick={this.handleButtonClick}>增加D</button>
+            <button  onClick={this.onBeginClickTask}>开始</button>
+            <div>
+              <div style={{ height: 100 , width: 100 , backgroundColor: 'red'}} id="drag-element" draggable={true} onDrag={this.onDragHandler}>
+                拖拽
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    function EventPriorityExample() {
+        const [clickCount, setClickCount] = React.useState("0");
+        const [scrollPosition, setScrollPosition] = React.useState(0);
+
+        const handleClick = () => {
+            // 模拟一个耗时操作
+            let sum = 0;
+            for (let i = 0; i < 1000000; i++) {
+              for (let j = 0; j < 10000; j++) {
+                sum += 1;
+              }
+              if(i % 10000 === 0){
+                setClickCount(prevCount => prevCount + '1');
+              }
+            }
+
+        };
+
+        const handleScroll = (e) => {
+          console.log("滚动事件触发" ,clickCount);
+
+            setClickCount(prevCount => prevCount + 'A');
+        };
+
+        return (
+            <div style={{ height: '500px', overflow: 'auto' }} onScroll={handleScroll}>
+                <button onClick={handleClick}>
+                    点击我 ({clickCount})
+                </button>
+                <div style={{ height: '2000px' }}>
+                    滚动这个区域来查看滚动位置：{scrollPosition}
+                </div>
+            </div>
+        )
+    }
+
+
+    /** @jsx React.createElement */
+    function App() {
+      return (
+        <div>
+          <h1>Hello World</h1>
+          <EventPriorityExample>
+
+          </EventPriorityExample>
+
+        </div>)
+
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

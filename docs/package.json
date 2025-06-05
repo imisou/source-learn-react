@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "scripts": {
+    "live-server": "node ./serve.js",
+    "start": "npm run live-server",
+    "dev": "npm run live-server"
+  },
+  "resolutions": {
+    "react-is": "npm:react-is"
+  }
+}

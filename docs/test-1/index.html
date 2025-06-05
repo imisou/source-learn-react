@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+    function Even(){
+      return <div>Even</div>
+    }
+    function Odd(){
+      return <div>Odd</div>
+    }
+    function ClickEventComponent(props) {
+
+      const [count, setCount] = React.useState(0);
+
+      const handleOnClick = () => {
+        setCount(count + 1);
+      }
+
+      return (
+        <div>
+          <div>Count: {count}</div>
+          {
+            count % 2 === 0 ?
+              <Even></Even> :
+              <Odd></Odd>
+          }
+          <button onClick={handleOnClick}>Click Me</button>
+        </div>
+      )
+    }
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<div>
+        <h1>Hello World</h1>
+        <ClickEventComponent />
+      </div>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <script src="../public/react.development.js"></script>
+  <script src="../public/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+    const MyContext1 = React.createContext();
+    const MyContext2 = React.createContext();
+
+    function MyProvider1(props) {
+    const [count1, setCount1] = React.useState(1);
+      return <MyContext1.Provider value={{ count1, setCount1 }}>
+
+        {props.children}
+        <div>
+          <button onClick={()=> {
+            setCount1(count1 + 1)
+            }}>
+            MyContext1 Provider
+          </button>
+        </div>
+
+      </MyContext1.Provider>
+    }
+
+    function MyConsumer1(props) {
+      return <MyContext1.Consumer>
+        {
+        (value) => {
+        const { count1 } = value;
+        return <div>
+          <h1>MyContext1 Consumer</h1>
+          <p>{count1}</p>
+        </div>
+        }
+        }
+      </MyContext1.Consumer>
+    }
+
+
+    function MyProvider2(props) {
+    const [count1, setCount1] = React.useState(1);
+      return <MyContext2.Provider value={{ count1, setCount1 }}>
+
+        {props.children}
+        <div>
+          <button onClick={()=> {
+            setCount1(count1 + 1)
+            }}>
+            MyContext2 Provider
+          </button>
+        </div>
+
+      </MyContext2.Provider>
+    }
+
+    function MyConsumer2(props) {
+      return <MyContext2.Consumer>
+        {
+        (value) => {
+        const { count1 } = value;
+        return <div>
+          <h1>MyContext2 Consumer</h1>
+          <p>{count1}</p>
+          <MyConsumer1 />
+        </div>
+        }
+        }
+      </MyContext2.Consumer>
+    }
+
+
+
+    /** @jsx React.createElement */
+    function App() {
+      return (<MyProvider1>
+        <div>
+          <h1>Hello World</h1>
+          <MyProvider2>
+            <MyConsumer2 />
+          </MyProvider2>
+
+        </div>
+      </MyProvider1>)
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+  </script>
+</body>
+
+</html>
